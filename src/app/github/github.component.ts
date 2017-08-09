@@ -13,7 +13,7 @@ import { GithubService } from '../github.service';
 export class GithubComponent implements OnInit {
     user: any;
     repos: any;
-    username: string;
+    username: string = 'octocat';
 
     repoList: any;
     issues: any;
@@ -48,7 +48,7 @@ export class GithubComponent implements OnInit {
       });*/
     }
 
-  search() {
+  stream() {
     this._githubService.updateUsername(this.username);
 
     this._githubService.getUser().subscribe(user => {
@@ -61,12 +61,10 @@ export class GithubComponent implements OnInit {
       this.repoList = this._githubService.repos;
       this.issues = this._githubService.issues;
     });
-
-    //this.repoList = this._githubService.getData();
-    //this._githubService.getIssues();
-    //this._githubService.xx();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+      this.stream();
+  }
 
 }

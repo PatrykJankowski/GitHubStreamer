@@ -18,6 +18,7 @@ export class GithubService {
   public temp: any;
   public repos: any = [];
   public issues: any = [];
+  repoLang: String = 'All';
 
 /*  ngOnInit() {
    /!* // or this.apollo.watchQuery() - read the docs
@@ -50,22 +51,13 @@ export class GithubService {
 
 
   getUser() {
-
-    return this._http.get('https://api.github.com/users/' + this.username + '?client_id=' + this.client_id + '&client_secret=' + this.client_secret)
+    return this._http.get('https://api.github.com/users/' + this.username)
       .map(res => res.json());
-
   }
 
   getRepos() {
-
     return this._http.get('https://api.github.com/users/' + this.username + '/repos?client_id=' + this.client_id + '&client_secret=' + this.client_secret)
-      /*.toPromise().then(
-        res => { this.temp = res.json(); this.getData(); },
-        error => console.log(JSON.stringify(error.json()))
-      );*/
-      /*.map(res => this.temp = res.json());*/
-
-      .map(res => { this.temp = res.json(); return res.json(); })
+      .map(res => { this.temp = res.json(); return this.temp; })
       .toPromise();
   }
 
@@ -75,18 +67,23 @@ export class GithubService {
 
   getData() {
     this.repos = [];
-
-    for (let x of this.temp) {
-      this.repos.push(x.name);
+    for (let repo of this.temp) {
+      if (repo.language == this.repoLang) {
+        this.repos.push(repo.name);
+      } else if (this.repoLang = 'All') {
+        this.repos.push(repo.name);
+      }
     }
     this.getIssues();
   }
 
   getIssues() {
 
+    this.issues = [];
+
     // We call API to many times in the loop - it has to be fixed
-    for (let x of this.repos) {
-      this._http.get('https://api.github.com/repos/octocat/' + x + '/issues').map(res => {
+    for (let repo of this.repos) {
+      this._http.get('https://api.github.com/repos/' + this.username + '/' + repo + '/issues').map(res => {
 
         for (let x of res.json()) {
           console.log(x);
