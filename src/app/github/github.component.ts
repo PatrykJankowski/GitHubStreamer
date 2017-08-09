@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubService } from '../github.service';
-//import {Apollo} from 'apollo-angular';
-//import gql from 'graphql-tag';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 
 
 @Component({
@@ -18,10 +18,10 @@ export class GithubComponent implements OnInit {
     repoList: any;
     issues: any;
 
-    constructor(private _githubService: GithubService /*private apollo: Apollo*/) {
+    constructor(private _githubService: GithubService, private apollo: Apollo) {
       console.log('Github Component Init...');
 
-     /* this.apollo.query({
+      /*this.apollo.query({
         query: gql`
                 {
                     repository(owner: "octocat", name: "Hello-World") {
@@ -46,6 +46,7 @@ export class GithubComponent implements OnInit {
       }).subscribe(response => {
         console.log('data', response.data);
       });*/
+
     }
 
   stream() {

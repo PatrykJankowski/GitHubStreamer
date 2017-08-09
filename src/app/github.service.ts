@@ -2,53 +2,45 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-//import { Apollo } from 'apollo-angular';
-//import gql from 'graphql-tag';
 
 @Injectable()
 export class GithubService {
 
-  constructor(private _http: Http, /*private apollo: Apollo*/) {
+  constructor(private _http: Http) {
     console.log('Github Service Init...');
   }
   private username = 'PatrykJankowski';
   private client_id = '84bc666f789c3e5c340f';
   private client_secret= '3132d8ed7592e2a71017c38574575ad9b65b9573';
 
-  public temp: any;
+  private temp: any;
   public repos: any = [];
   public issues: any = [];
-  repoLang: String = 'All';
 
-/*  ngOnInit() {
-   /!* // or this.apollo.watchQuery() - read the docs
-    this.apollo.query({
-      query: gql`
-                {
-                    repository(owner: "octocat", name: "Hello-World") {
-                        issues(last:20, states:CLOSED) {
-                            edges {
-                                node {
-                                    title
-                                    url
-                                    labels(first:5) {
-                                        edges {
-                                            node {
-                                                name
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+
+/*  test() {
+    const query = `query {
+      repository(owner:"octocat", name:"Hello-World") {
+        issues(last:20, states:CLOSED) {
+          edges {
+            node {
+              title
+              url
+              labels(first:5) {
+                edges {
+                  node {
+                    name
+                  }
                 }
-            `
-    }).subscribe(response => {
-      console.log('data', response.data);
-    });*!/
+              }
+            }
+          }
+        }
+      }
+    }`;
+    console.log("XXXXXXXX");
+    return this._http.get('https://api.github.com/graphql?query=' + query).map(res => console.log(res.json()));
   }*/
-
 
   getUser() {
     return this._http.get('https://api.github.com/users/' + this.username)
@@ -68,11 +60,9 @@ export class GithubService {
   getData() {
     this.repos = [];
     for (let repo of this.temp) {
-      if (repo.language == this.repoLang) {
+      //if (repo.language == 'JavaScript') {
         this.repos.push(repo.name);
-      } else if (this.repoLang = 'All') {
-        this.repos.push(repo.name);
-      }
+      //}
     }
     this.getIssues();
   }
@@ -85,15 +75,15 @@ export class GithubService {
     for (let repo of this.repos) {
       this._http.get('https://api.github.com/repos/' + this.username + '/' + repo + '/issues').map(res => {
 
-        for (let x of res.json()) {
-          console.log(x);
-          if (x.title != '') {
+        for (let issue of res.json()) {
+          //console.log(x);
+          if (issue.title != '') {
             this.issues.push({
-              title: x.title,
-              body: x.body,
-              created_at: x.created_at,
-              url: x.url,
-              avatar: x.user.avatar_url
+              title: issue.title,
+              body: issue.body,
+              created_at: issue.created_at,
+              url: issue.url,
+              avatar: issue.user.avatar_url
             });
           }
         }
@@ -103,7 +93,6 @@ export class GithubService {
       });
 
     }
-    console.log(this.issues);
     return this.issues;
   }
 
