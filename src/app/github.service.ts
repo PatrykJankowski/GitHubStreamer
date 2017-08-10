@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import * as moment from "moment";
 
 @Injectable()
 export class GithubService {
@@ -81,7 +82,7 @@ export class GithubService {
             this.issues.push({
               title: issue.title,
               body: issue.body,
-              created_at: issue.created_at,
+              created_at: moment(issue.created_at).format('YYYY-MM-DD h:mm:ss'),
               url: issue.url,
               avatar: issue.user.avatar_url
             });

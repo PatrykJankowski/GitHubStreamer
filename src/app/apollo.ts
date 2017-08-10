@@ -1,9 +1,10 @@
+/*
 import {ApolloClient, createBatchingNetworkInterface, createNetworkInterface} from 'apollo-client';
 
-/*const networkInterface = createBatchingNetworkInterface({
+/!*const networkInterface = createBatchingNetworkInterface({
   uri: 'https://api.github.com/graphql',
   batchInterval: 10
-});*/
+});*!/
 
 
 
@@ -36,15 +37,15 @@ networkInterface.useAfter([loggingAfterware]);
 
 
 
-/*const networkInterface = createBatchingNetworkInterface({
+/!*const networkInterface = createBatchingNetworkInterface({
   uri: 'https://api.github.com/graphql',
   batchInterval: 10,
   opts: {
     credentials: 'cd620340b5afcd5ad60853fcaac013808d6841ee'
   }
-});*/
+});*!/
 
-/*networkInterface.use([{
+/!*networkInterface.use([{
   applyMiddleware(req, next) {
     if (!req.options.headers) {
       req.options.headers = {};  // Create the header object if needed.
@@ -52,7 +53,7 @@ networkInterface.useAfter([loggingAfterware]);
     req.options.headers['Authorization'] = 'cd620340b5afcd5ad60853fcaac013808d6841ee';
     next();
   }
-}]);*/
+}]);*!/
 
 
 
@@ -63,3 +64,4 @@ const client = new ApolloClient({
 export function provideClient(): ApolloClient {
   return client;
 }
+*/

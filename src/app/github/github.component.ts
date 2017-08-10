@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubService } from '../github.service';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
+import * as moment from "moment";
+//import { Apollo } from 'apollo-angular';
+//import gql from 'graphql-tag';
 
 
 @Component({
@@ -18,9 +19,8 @@ export class GithubComponent implements OnInit {
     repoList: any;
     issues: any;
 
-    constructor(private _githubService: GithubService, private apollo: Apollo) {
+    constructor(private _githubService: GithubService /*private apollo: Apollo*/) {
       console.log('Github Component Init...');
-
       /*this.apollo.query({
         query: gql`
                 {
@@ -54,6 +54,7 @@ export class GithubComponent implements OnInit {
 
     this._githubService.getUser().subscribe(user => {
       this.user = user;
+      this.user.created_at = moment(user.created_at).format('YYYY-MM-DD h:mm:ss');
     });
 
     this._githubService.getRepos().then(repos => {

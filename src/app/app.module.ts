@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { GithubService } from './github.service';
 import { GithubComponent } from './github/github.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ApolloModule } from 'apollo-angular';
-import { provideClient } from './apollo';
+//import { ApolloModule } from 'apollo-angular';
+//import { provideClient } from './apollo';
 
 
 @NgModule({
@@ -19,8 +19,8 @@ import { provideClient } from './apollo';
     BrowserModule,
     FormsModule,
     HttpModule,
-    NgbModule.forRoot(),
-    ApolloModule.forRoot(provideClient)
+    NgbModule.forRoot()
+    //ApolloModule.forRoot(provideClient)
   ],
   providers: [GithubService],
   bootstrap: [AppComponent]

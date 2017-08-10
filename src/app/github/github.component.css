@@ -2,6 +2,6 @@
   margin-bottom: 1rem;
 }
 
-.stats {
+.stats, .panel-title {
   margin: 1rem 0;
 }
