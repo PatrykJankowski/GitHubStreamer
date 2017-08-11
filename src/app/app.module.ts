@@ -19,8 +19,9 @@ import { provideClient } from './apollo';
     BrowserModule,
     FormsModule,
     HttpModule,
-    NgbModule.forRoot(),
-    ApolloModule.forRoot(provideClient)
+    ApolloModule.forRoot(provideClient),
+    NgbModule.forRoot()
+
   ],
   providers: [GithubService],
   bootstrap: [AppComponent]

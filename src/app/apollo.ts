@@ -32,7 +32,7 @@ const client = new ApolloClient({
 networkInterface.use([{
   applyMiddleware(req, next) {
     if (!req.options.headers) {
-      req.options.headers = {};  // Create the header object if needed.
+      req.options.headers = {};
     }
     req.options.headers['Authorization'] = 'bearer ' + token;
     next();

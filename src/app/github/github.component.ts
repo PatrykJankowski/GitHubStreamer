@@ -139,7 +139,7 @@ export class GithubComponent implements OnInit {
       this.issues2 = data['search']['nodes'];
       this.loading = data.loading;
       this.currentUser = data.currentUser;
-      
+
       for (let issue of this.issues2) {
         if (issue.__typename == "Issue") {
           this.tab.push(issue);
