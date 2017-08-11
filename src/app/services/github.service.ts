@@ -1,3 +1,12 @@
+/*
+
+  TODO
+  1: Move all requests/queries to one file
+  2: Use GraphQL everywhere
+
+*/
+
+
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -40,9 +49,9 @@ export class GithubService {
   getData() {
     this.repos = [];
     for (let repo of this.temp) {
-      //if (repo.language == 'JavaScript') {
+      // if (repo.language == 'JavaScript') {
         this.repos.push(repo.name);
-      //}
+      // }
     }
     this.getIssues();
   }

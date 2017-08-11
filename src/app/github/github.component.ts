@@ -1,5 +1,14 @@
+/*
+
+  TODO
+  1: Move all requests/queries to one file
+  2: Use GraphQL everywhere
+
+*/
+
+
 import { Component, OnInit } from '@angular/core';
-import { GithubService } from '../github.service';
+import { GithubService } from '../services/github.service';
 import * as moment from 'moment';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -8,7 +17,6 @@ import gql from 'graphql-tag';
 const Issues = gql`
   query { 
     search(query: "language:JavaScript", type: ISSUE, first: 30) {
-      
         nodes {
           ... on Issue {
             createdAt
@@ -28,60 +36,19 @@ const Issues = gql`
   }
 `;
 
-/*query {
-  repository(owner:"octocat", name:"Spoon-Knife") {
-    languages(first:20) {
-      edges {
-        node {
-          name
-        }
-      }
-    }
-    issues(last:20, states:CLOSED) {
-      edges {
-        node {
-          title
-          url
-          labels(first:5) {
-            edges {
-              node {
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
 
+/*const User = gql`
   query {
     user(login:"octocat") {
-      issues(first:20) {
-        edges {
-          node {
-            body
-            createdAt
-            title
-            url
-            repository {
-              url
-            }
-            author {
-              avatarUrl
-              url
-            }
-          }
-        }
-      }
+      login
+      createdAt
+      location
+      email
 
     }
-
-
   }
+`;*/
 
-
-*/
 
 interface QueryResponse {
   currentUser
@@ -90,7 +57,7 @@ interface QueryResponse {
 
 
 @Component({
-  selector: 'github',
+  selector: 'app-github',
   templateUrl: './github.component.html',
   styleUrls: ['./github.component.css']
 })
@@ -141,12 +108,20 @@ export class GithubComponent implements OnInit {
       this.currentUser = data.currentUser;
 
       for (let issue of this.issues2) {
-        if (issue.__typename == "Issue") {
+        if (issue.__typename == 'Issue') {
           this.tab.push(issue);
         }
       }
 
     });
+
+    /*this.apollo.watchQuery<QueryResponse>({
+      query: User
+    }).subscribe(({data}) => {
+      console.log(data);
+
+    });*/
+
   }
 
 }

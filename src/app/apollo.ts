@@ -3,13 +3,14 @@ import {ApolloClient, createNetworkInterface, IntrospectionFragmentMatcher} from
 
 const token = 'cd620340b5afcd5ad60853fcaac013808d6841ee';
 
+// Should be fixed
 const myFragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData: {
     __schema: {
       types: [
         {
           kind: 'OBJECT',
-          name: 'ISSUE',
+          name: 'Issue',
           possibleTypes: [
             { name: 'Issue' }
           ],

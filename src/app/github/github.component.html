@@ -41,7 +41,6 @@
     </div>
   </div>
 
-
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" data-toggle="tab" href="#allIssues" role="tab">All GitHub JavaScript Issues</a>
@@ -54,87 +53,78 @@
     </li>
   </ul>
 
-
   <div class="panel panel-default">
-
     <div class="tab-content">
-
-    <div class="tab-pane active" id="allIssues" role="tabpanel">
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12">
-
-            <div *ngFor="let t of tab">
-              <div class="row">
-                <div class="col-md-2">
-                  <a href="{{t.author.url}}" target="_blank"><img src="{{t.author.avatarUrl}}" class="img-thumbnail"></a>
+      <div class="tab-pane active" id="allIssues" role="tabpanel">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngFor="let t of tab">
+                <div class="row">
+                  <div class="col-md-2">
+                    <a href="{{t.author.url}}" target="_blank"><img src="{{t.author.avatarUrl}}" class="img-thumbnail"></a>
+                  </div>
+                  <div class="col-md-7">
+                    <h5><a href="{{t.url}}" target="_blank">{{t.title}}</a></h5>
+                    <p>{{t.body}}</p>
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">{{t.createdAt}}</span>
+                  </div>
                 </div>
-                <div class="col-md-7">
-                  <h5><a href="{{t.url}}" target="_blank">{{t.title}}</a></h5>
-                  <p></p>
-                </div>
-                <div class="col-md-3">
-                  <span class="label label-default">{{t.createdAt}}</span>
-                </div>
+                <hr/>
               </div>
-              <hr/>
             </div>
-
           </div>
         </div>
       </div>
-    </div>
 
-
-    <div class="tab-pane" id="issues" role="tabpanel">
-    <div class="panel-body">
-      <div class="row">
-        <div class="col-md-12">
-
-          <!--<button class="btn btn-success" type="button" [(ngModel)]="repoLang:" name="JavaScript" (click)="stream()">Stream!</button>-->
-
-          <div *ngFor="let issue of issues">
-            <div class="row">
-              <div class="col-md-2">
-                <img src="{{issue.avatar}}" class="img-thumbnail">
-              </div>
-              <div class="col-md-7">
-                <h5><a href="{{issue.url}}" target="_blank">{{issue.title}}</a></h5>
-                <p>{{issue.body}}</p>
-              </div>
-              <div class="col-md-3">
-                <span class="label label-default">{{issue.created_at}}</span>
+      <div class="tab-pane" id="issues" role="tabpanel">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngFor="let issue of issues">
+                <div class="row">
+                  <div class="col-md-2">
+                    <img src="{{issue.avatar}}" class="img-thumbnail">
+                  </div>
+                  <div class="col-md-7">
+                    <h5><a href="{{issue.url}}" target="_blank">{{issue.title}}</a></h5>
+                    <p>{{issue.body}}</p>
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">{{issue.created_at}}</span>
+                  </div>
+                </div>
+                <hr/>
               </div>
             </div>
-            <hr/>
           </div>
         </div>
       </div>
-    </div>
-    </div>
 
-    <div class="tab-pane" id="repositories" role="tabpanel">
-    <div class="panel-body">
-      <div class="row">
-        <div class="col-md-12">
-          <div *ngFor="let repo of repos">
-            <div class="row">
-              <div class="col-md-9">
-                <h5><a href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h5>
-                <p>{{repo.description}}</p>
-              </div>
-              <div class="col-md-3">
-                <span class="label label-default">{{repo.watchers}} Watchers</span>
-                <span class="label label-primary">{{repo.forks}} Forks</span>
+      <div class="tab-pane" id="repositories" role="tabpanel">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngFor="let repo of repos">
+                <div class="row">
+                  <div class="col-md-9">
+                    <h5><a href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h5>
+                    <p>{{repo.description}}</p>
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">{{repo.watchers}} Watchers</span>
+                    <span class="label label-primary">{{repo.forks}} Forks</span>
+                  </div>
+                </div>
+                <hr />
               </div>
             </div>
-            <hr />
           </div>
         </div>
       </div>
-    </div>
-    </div>
 
-  </div>
+    </div>
   </div>
 </div>
