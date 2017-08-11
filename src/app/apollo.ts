@@ -1,7 +1,7 @@
 import {ApolloClient, createNetworkInterface, IntrospectionFragmentMatcher} from 'apollo-client';
 
 
-const token = 'cd620340b5afcd5ad60853fcaac013808d6841ee';
+const token = '271ec2e0ce5e201a271e607e4cbd49cf89f11b29';
 
 // Should be fixed
 const myFragmentMatcher = new IntrospectionFragmentMatcher({

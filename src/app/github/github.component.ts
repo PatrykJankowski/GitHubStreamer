@@ -6,7 +6,6 @@
 
 */
 
-
 import { Component, OnInit } from '@angular/core';
 import { GithubService } from '../services/github.service';
 import * as moment from 'moment';
@@ -17,6 +16,7 @@ import gql from 'graphql-tag';
 const Issues = gql`
   query { 
     search(query: "language:JavaScript", type: ISSUE, first: 30) {
+      
         nodes {
           ... on Issue {
             createdAt
@@ -51,8 +51,8 @@ const Issues = gql`
 
 
 interface QueryResponse {
-  currentUser
-  loading
+  currentUser;
+  loading;
 }
 
 
