@@ -1,14 +1,13 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Github Username" [(ngModel)]="username" name="username">
+      <input class="form-control" placeholder="Github username" [(ngModel)]="username" name="username">
       <span class="input-group-btn">
         <button class="btn btn-success" type="button" (click)="stream()">Stream!</button>
       </span>
     </div>
   </div>
 </div>
-
 
 <div *ngIf="user">
 
@@ -23,11 +22,11 @@
         </div>
         <div class="col-md-8">
           <ul class="list-group">
-            <li class="list-group-item"><strong>Username:&nbsp;</strong> {{user.login}}</li>
-            <li class="list-group-item"><strong>Location:&nbsp;</strong> {{user.location}}</li>
-            <li class="list-group-item"><strong>Email:&nbsp;</strong> {{user.email}} <span *ngIf="!user.emaill">not available</span></li>
-            <li class="list-group-item"><strong>Blog:&nbsp;</strong> {{user.blog}}</li>
-            <li class="list-group-item"><strong>Member Since:&nbsp;</strong> {{user.created_at}}</li>
+            <li class="list-group-item"><strong>Username:</strong>&nbsp;{{user.login}}</li>
+            <li class="list-group-item"><strong>Location:</strong>&nbsp;{{user.location}}</li>
+            <li class="list-group-item"><strong>Email:</strong>&nbsp;{{user.email}} <span *ngIf="!user.emaill">not available</span></li>
+            <li class="list-group-item"><strong>Blog:</strong>&nbsp;{{user.blog}}</li>
+            <li class="list-group-item"><strong>Member Since:</strong>&nbsp;{{user.created_at}}</li>
           </ul>
         </div>
         <div class="col-md-12">
@@ -45,10 +44,13 @@
 
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#issues" role="tab">Issues</a>
+      <a class="nav-link active" data-toggle="tab" href="#allIssues" role="tab">All GitHub JavaScript Issues</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#repositories" role="tab">Repositories</a>
+      <a class="nav-link" data-toggle="tab" href="#issues" role="tab">User Repositories Issues</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#repositories" role="tab">User Repositories</a>
     </li>
   </ul>
 
@@ -57,7 +59,34 @@
 
     <div class="tab-content">
 
-    <div class="tab-pane active" id="issues" role="tabpanel">
+    <div class="tab-pane active" id="allIssues" role="tabpanel">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div *ngFor="let t of tab">
+              <div class="row">
+                <div class="col-md-2">
+                  <a href="{{t.author.url}}" target="_blank"><img src="{{t.author.avatarUrl}}" class="img-thumbnail"></a>
+                </div>
+                <div class="col-md-7">
+                  <h5><a href="{{t.url}}" target="_blank">{{t.title}}</a></h5>
+                  <p></p>
+                </div>
+                <div class="col-md-3">
+                  <span class="label label-default">{{t.createdAt}}</span>
+                </div>
+              </div>
+              <hr/>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="tab-pane" id="issues" role="tabpanel">
     <div class="panel-body">
       <div class="row">
         <div class="col-md-12">
@@ -70,7 +99,7 @@
                 <img src="{{issue.avatar}}" class="img-thumbnail">
               </div>
               <div class="col-md-7">
-                <h4><a href="{{issue.url}}" target="_blank">{{issue.title}}</a></h4>
+                <h5><a href="{{issue.url}}" target="_blank">{{issue.title}}</a></h5>
                 <p>{{issue.body}}</p>
               </div>
               <div class="col-md-3">
@@ -91,7 +120,7 @@
           <div *ngFor="let repo of repos">
             <div class="row">
               <div class="col-md-9">
-                <h4><a href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h4>
+                <h5><a href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h5>
                 <p>{{repo.description}}</p>
               </div>
               <div class="col-md-3">

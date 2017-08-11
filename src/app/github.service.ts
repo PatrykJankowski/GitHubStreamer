@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import * as moment from "moment";
+import * as moment from 'moment';
+
 
 @Injectable()
 export class GithubService {
 
-  constructor(private _http: Http) {
-    console.log('Github Service Init...');
-  }
   private username = 'PatrykJankowski';
   private client_id = '84bc666f789c3e5c340f';
   private client_secret= '3132d8ed7592e2a71017c38574575ad9b65b9573';
@@ -19,29 +17,10 @@ export class GithubService {
   public issues: any = [];
 
 
-/*  test() {
-    const query = `query {
-      repository(owner:"octocat", name:"Hello-World") {
-        issues(last:20, states:CLOSED) {
-          edges {
-            node {
-              title
-              url
-              labels(first:5) {
-                edges {
-                  node {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }`;
-    console.log("XXXXXXXX");
-    return this._http.get('https://api.github.com/graphql?query=' + query).map(res => console.log(res.json()));
-  }*/
+  constructor(private _http: Http) {
+    console.log('Github Service Init...');
+  }
+
 
   getUser() {
     return this._http.get('https://api.github.com/users/' + this.username)
@@ -72,12 +51,11 @@ export class GithubService {
 
     this.issues = [];
 
-    // We call API to many times in the loop - it has to be fixed
+    // We call API to many times in the loop - it has to be fixed - in example by using GraphQL
     for (let repo of this.repos) {
       this._http.get('https://api.github.com/repos/' + this.username + '/' + repo + '/issues').map(res => {
 
         for (let issue of res.json()) {
-          //console.log(x);
           if (issue.title != '') {
             this.issues.push({
               title: issue.title,

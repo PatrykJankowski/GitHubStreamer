@@ -1,8 +1,92 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubService } from '../github.service';
-import * as moment from "moment";
-//import { Apollo } from 'apollo-angular';
-//import gql from 'graphql-tag';
+import * as moment from 'moment';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+
+
+const Issues = gql`
+  query { 
+    search(query: "language:JavaScript", type: ISSUE, first: 30) {
+      
+        nodes {
+          ... on Issue {
+            createdAt
+            title
+            url
+            repository {
+              url
+            }
+            author {
+              avatarUrl
+              url
+            }
+          }
+        }
+      
+    }
+  }
+`;
+
+/*query {
+  repository(owner:"octocat", name:"Spoon-Knife") {
+    languages(first:20) {
+      edges {
+        node {
+          name
+        }
+      }
+    }
+    issues(last:20, states:CLOSED) {
+      edges {
+        node {
+          title
+          url
+          labels(first:5) {
+            edges {
+              node {
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+  query {
+    user(login:"octocat") {
+      issues(first:20) {
+        edges {
+          node {
+            body
+            createdAt
+            title
+            url
+            repository {
+              url
+            }
+            author {
+              avatarUrl
+              url
+            }
+          }
+        }
+      }
+
+    }
+
+
+  }
+
+
+*/
+
+interface QueryResponse {
+  currentUser
+  loading
+}
 
 
 @Component({
@@ -18,34 +102,15 @@ export class GithubComponent implements OnInit {
 
     repoList: any;
     issues: any;
+    issues2: any;
 
-    constructor(private _githubService: GithubService /*private apollo: Apollo*/) {
+    tab = [];
+
+    loading: boolean;
+    currentUser: any;
+
+    constructor(private _githubService: GithubService, private apollo: Apollo) {
       console.log('Github Component Init...');
-      /*this.apollo.query({
-        query: gql`
-                {
-                    repository(owner: "octocat", name: "Hello-World") {
-                        issues(last:20, states:CLOSED) {
-                            edges {
-                                node {
-                                    title
-                                    url
-                                    labels(first:5) {
-                                        edges {
-                                            node {
-                                                name
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            `
-      }).subscribe(response => {
-        console.log('data', response.data);
-      });*/
 
     }
 
@@ -66,7 +131,22 @@ export class GithubComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.stream();
+    this.stream();
+
+    this.apollo.watchQuery<QueryResponse>({
+      query: Issues
+    }).subscribe(({data}) => {
+      this.issues2 = data['search']['nodes'];
+      this.loading = data.loading;
+      this.currentUser = data.currentUser;
+      
+      for (let issue of this.issues2) {
+        if (issue.__typename == "Issue") {
+          this.tab.push(issue);
+        }
+      }
+
+    });
   }
 
 }
