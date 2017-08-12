@@ -1,5 +1,7 @@
 # GithubStreamClient
 
+Demo of the project is available on [http://patrykjankowski.pl/github-stream-client/](http://patrykjankowski.pl/github-stream-client/).
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.3.
 
 ## Development server
